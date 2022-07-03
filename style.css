@@ -1,0 +1,21 @@
+body{
+    background-color: rgb(242, 230, 255);
+}
+/* .container{
+    background-color: white;
+} */
+.form-group{
+    margin-top: 2%;
+    padding: 5%;
+    background-color: white;
+    border-radius: 15px;
+}
+label{
+    margin-bottom: 2%;
+}
+
+
+@media (min-width: 576px){}
+@media (min-width: 768px){}
+@media (min-width: 992px){}
+@media (min-width: 1200px){}
