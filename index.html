@@ -1,6 +1,6 @@
-<?php
-require './db.php';
-?>
+<!-- <?php
+// require './db.php';
+?> -->
 
 
 <!DOCTYPE html>
@@ -15,24 +15,32 @@ require './db.php';
 </head>
 <body>
     <div class="container">
-      <div class="form-group"><h1>Purchase Record 2022-2023</h1></div>
+      <div class="form-group">
+        <h1>Purchase Record 2022-2023</h1>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScJ-uq1aKQVGcuagOzFoZQKGYoHnKIkBR4_OcCpiIa4aoNdlg/viewform">New company</a>
+      </div>
     </div>
-    <form class="container" id="sheetdb-form" action="https://sheetdb.io/api/v1/795hf1kupek3l" method="post">
+    <form class="container" id="sheetdb-form" action="https://sheetdb.io/api/v1/k1998shhq1qsh" method="post">
       <input type="hidden" type="text" id="time" name="data[Timestamp]">
       <div class="form-group">
-          <label for="cname">COMPANY NAME</label>
-          <select class="form-control" id="cname" name="data[COMPANY NAME]">
+          <label for="cname">COMPANY NAME</label><br>
+          <!-- <select class="form-control" id="cname" name="data[COMPANY NAME]">
             <?php
-              foreach ($values as $row) {
-                // Print columns A and E, which correspond to indices 0 and 4.
-                echo "<option value='".$row[1]."'>".$row[1]."</option>";
-              }
+              // foreach ($values as $row) {
+              //   // Print columns A and E, which correspond to indices 0 and 4.
+              //   echo "<option value='".$row[1]."'>".$row[1]."</option>";
+              // }
             ?>
-          </select>
+          </select> -->
+          <select name="data[COMPANY NAME]" id="cname" data-sheetdb-url="https://sheetdb.io/api/v1/0k8dcje5gq41o"
+         data-sheetdb-sort-by="Company name"
+         data-sheetdb-sort-order="asc" >
+                <option value="{{Company name}}">{{Company name}}</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="invoicenumber">INVOICE</label>
-        <input type="text" class="form-control" id="invoice" name="data[invoice]" placeholder="Enter invoice number" onkeyup="this.value = this.value.toUpperCase();">
+        <input type="text" class="form-control" id="invoice" name="data[invoice]" placeholder="Enter invoice number" onkeyup="this.value = this.value.toUpperCase();" autocomplete="off">
       </div>
       <div class="form-group">
         <label for="date">DATE</label><br>
@@ -49,11 +57,11 @@ require './db.php';
       </div>
       <div class="form-group">
         <label for="taxableValue">Taxable Value</label><br>
-        <input type="number" name="data[Taxable Value]" id="taxableValue" oninput="totalinvoice(this)">
+        <input type="number" step=".01" name="data[Taxable Value]" id="taxableValue" oninput="totalinvoice(this)">
       </div>
       <div class="form-group">
         <label for="discount">Discount</label><br>
-        <input type="number" name="data[Discount]" id="discount" value="0" oninput="totalinvoiceafterdiscount(this)">
+        <input type="number" step=".01" name="data[Discount]" id="discount" value="0" oninput="totalinvoiceafterdiscount(this)">
       </div>
       <div class="form-group">
         <label for="total">Total</label><br>
@@ -68,6 +76,7 @@ require './db.php';
   var total;
   var form = document.getElementById('sheetdb-form');
   form.addEventListener("submit", e => {
+    console.log(e);
     e.preventDefault();
     fetch(form.action, {
         method : "POST",
@@ -76,12 +85,14 @@ require './db.php';
         response => response.json()
     ).then((html) => {
       // you can put any JS code here
-      window.location.href = 'http://localhost/form%201/';
+      window.location.href = 'http://purchasebook.epizy.com/?i=1';
     });
   });
 
   function totalinvoice(x){
-    document.getElementById("time").value=Date.now();
+    var d = Date.now();
+    d.toLocaleString();
+    document.getElementById("time").value=d;
     var tax = document.getElementById("percentage").value;
     var discount = document.getElementById("discount").value;
     total = x.value * tax;
@@ -97,4 +108,5 @@ require './db.php';
     document.getElementById("total").value = discount_total;
   }
 </script>
+<script src="https://sheetdb.io/handlebars.js"></script>
 </html>
